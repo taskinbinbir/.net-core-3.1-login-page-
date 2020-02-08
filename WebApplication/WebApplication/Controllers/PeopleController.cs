@@ -29,8 +29,9 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> HowToPerson(Person person)
-        {        
+        //public async Task<IActionResult> HowToPerson(Person person)
+        public IActionResult HowToPerson(Person person)
+        {
             try
             {
                 Person p = (from k in _context.Person

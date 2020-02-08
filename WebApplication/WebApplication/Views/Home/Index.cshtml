@@ -2,32 +2,59 @@
     ViewData["Title"] = "Home Page";
 }
 
-<form>
-    <input type="text" id="personNumber" placeholder="person number">
-    <input type="text" id="name" placeholder="name" />
-    <input type="text" id="surname" placeholder="surname" />
-    <input type="submit" value="gönder">
-</form>
-<script>
 
-   
+
+    <div class="container center">
+
+        <form class="mx-auto">
+
+                    <p class="font-weight-bold ii">Hoşgeldiniz</p>
+
+                    <input type="text" class="form-control ii" id="name" placeholder="adınız" required/>
+           
+                    <input type="text" class="form-control ii" id="surname" placeholder="soyadınız" required/>
+         
+                    <input type="submit" value="giriş yap   " class="btn btn-primary" />
+          
+
+        </form>
+
+
+
+    </div>
+
+<script type="text/javascript">
+
+
     $(document).ready(function () {
-         $.ajax({
-            type: "POST",
-            url: "https://localhost:44384/api/People",
-            data: JSON.stringify({ "name": "namesss", "surname": "surname" }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function(result) {
 
-                alert(JSON.stringify(result));
+        $("form").submit(function () {
+             $.ajax({
+                type: "POST",
+                 url: "https://localhost:44384/api/People",
+                 data: JSON.stringify({ "name": $("#name").val(), "surname": $("#surname").val() }),
+                contentType: "application/json; charset=utf-8",
+                 dataType: "json",
+                 async: "true",
+                success: function(result) {
 
-            },
-            error: function() {
-                alert("Talep esnasında sorun oluştu. Yeniden deneyin");
+                    //alert(JSON.stringify(result));
 
-            }
-        });
+                    if (result != "0") {
+                        alert(JSON.stringify("Hoşgeldiniz " +  result.name));
+                    }
+                    else {
+                        alert("kullanıcı bulunamadı.");
+                    }
+
+
+                },
+                error: function() {
+                    alert("Talep esnasında sorun oluştu. Yeniden deneyin");
+
+                }
+            });
+         });
     });
 
    
