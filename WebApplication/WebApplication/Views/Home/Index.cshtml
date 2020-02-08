@@ -2,29 +2,33 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
+<form>
+    <input type="text" id="personNumber" placeholder="person number">
+    <input type="text" id="name" placeholder="name" />
+    <input type="text" id="surname" placeholder="surname" />
+    <input type="submit" value="gönder">
+</form>
 <script>
-    $(document).ready(function (e) {
 
-        alert("tt");
+   
+    $(document).ready(function () {
+         $.ajax({
+            type: "POST",
+            url: "https://localhost:44384/api/People",
+            data: JSON.stringify({ "name": "namesss", "surname": "surname" }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(result) {
 
-        var settings = {
-        "url": "https://localhost:44384/person",
-        "method": "POST",
-        "timeout": 0,
-        "headers": {
-            "Content-Type": "application/json"
-        },
-        "data": JSON.stringify({"number":"10","name":"name","surname":"surname"}),
-        };
+                alert(JSON.stringify(result));
 
-        $.ajax(settings).done(function (response) {
-        console.log(response);
+            },
+            error: function() {
+                alert("Talep esnasında sorun oluştu. Yeniden deneyin");
+
+            }
         });
-      
-      });
+    });
+
+   
 </script>
